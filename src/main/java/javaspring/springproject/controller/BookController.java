@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -16,6 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequestMapping
 public class BookController {
     private static List<Book> books = new ArrayList<>();
 
@@ -31,7 +30,7 @@ public class BookController {
     @Value("${error.message}")
     private String errorMessage;
 
-    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/","/index"})
     public ModelAndView index(Model model){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
@@ -40,7 +39,7 @@ public class BookController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/allbooks"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/allbooks"})
     public ModelAndView personList(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("booklist");
@@ -48,7 +47,7 @@ public class BookController {
         log.info("/allbooks was called");
         return modelAndView; }
 
-    @RequestMapping(value = {"/addbook"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/addbook"})
     public ModelAndView showAddPersonPage(Model model) {
         ModelAndView modelAndView = new ModelAndView("addbook");
         BookForm bookForm = new BookForm();
@@ -58,7 +57,7 @@ public class BookController {
     }
 
     // @PostMapping("/addbook") //GetMapping("/")
-    @RequestMapping(value = {"/addbook"}, method = RequestMethod.POST)
+    @PostMapping(value = {"/addbook"})
     public ModelAndView savePerson(Model model, //
     @ModelAttribute("bookform") BookForm bookForm) {
         ModelAndView modelAndView = new ModelAndView();
