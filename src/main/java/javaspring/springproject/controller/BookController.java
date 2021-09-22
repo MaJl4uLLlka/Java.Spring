@@ -2,6 +2,7 @@ package javaspring.springproject.controller;
 
 import javaspring.springproject.forms.BookForm;
 import javaspring.springproject.model.Book;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class BookController {
     private static List<Book> books = new ArrayList<>();
@@ -34,7 +36,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         model.addAttribute("message", message);
-
+        log.info("/index was called");
         return modelAndView;
     }
 
@@ -43,7 +45,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("booklist");
         model.addAttribute("books", books);
-
+        log.info("/allbooks was called");
         return modelAndView; }
 
     @RequestMapping(value = {"/addbook"}, method = RequestMethod.GET)
@@ -51,6 +53,7 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("addbook");
         BookForm bookForm = new BookForm();
         model.addAttribute("bookform", bookForm);
+        log.info("/addbook was called");
         return modelAndView;
     }
 
