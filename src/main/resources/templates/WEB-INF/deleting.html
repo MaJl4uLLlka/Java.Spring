@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> <meta charset="UTF-8" />
+    <title>Deleting</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+    <h1>Deleting</h1>
+    <br/>
+    <br/>
+
+    <div class="container">
+        <label>
+            <select >
+                <option th:each="book:${books}" th:utext="${book.title}">...</option>
+            </select>
+        </label>
+    </div>
+
+</body>
+</html>

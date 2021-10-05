@@ -68,11 +68,33 @@ public class BookController {
         && author != null && author.length() > 0)
         {
             Book newBook = new Book(title, author);
-            books.add(newBook); model.addAttribute("books",books);
+            books.add(newBook);
+            model.addAttribute("books",books);
             return modelAndView;
         }
         model.addAttribute("errorMessage", errorMessage);
         modelAndView.setViewName("addbook");
+        return modelAndView;
+    }
+
+    @GetMapping(value = {"/delete"})
+    public ModelAndView deletePerson(Model model, @ModelAttribute("bookform") BookForm bookForm)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("deleting");
+        model.addAttribute("books", books);
+
+        //TODO logic need here
+        return modelAndView;
+    }
+
+    @GetMapping(value = {"/edit"})
+    public ModelAndView editPerson(Model model, @ModelAttribute("boookform") BookForm bookForm)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("editing");
+
+        //TODO logic
         return modelAndView;
     }
 }
