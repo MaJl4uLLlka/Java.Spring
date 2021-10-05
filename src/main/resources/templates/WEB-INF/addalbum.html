@@ -8,8 +8,8 @@
 
 <body>
 <div class="container">
-   <h1>New book:</h1>
-    <form th:action="@{/addbook}" th:object="${bookform}" method="POST">
+   <h1>New album:</h1>
+    <form th:action="@{/addalbum}" th:object="${albumform}" method="POST">
         <p>Title:
             <label>
                 <input type="text" th:field="*{title}" />

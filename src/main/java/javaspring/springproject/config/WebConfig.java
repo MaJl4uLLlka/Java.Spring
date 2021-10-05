@@ -20,7 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setCharacterEncoding("UTF-8");
-        return templateResolver; }
+        return templateResolver;
+    }
 
     @Bean public SpringTemplateEngine templateEngine()
     {
@@ -29,7 +30,8 @@ public class WebConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
-    @Bean public ViewResolver viewResolver()
+    @Bean
+    public ViewResolver viewResolver()
     {
         var viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
