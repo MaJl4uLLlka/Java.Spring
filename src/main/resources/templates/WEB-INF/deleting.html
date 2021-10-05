@@ -11,11 +11,17 @@
     <br/>
 
     <div class="container">
-        <label>
-            <select >
-                <option th:each="album:${albums}" th:utext="${album.title}">...</option>
-            </select>
-        </label>
+        <form th:action="@{/delete}" th:object="${deletingform}" method="POST">
+            <p>Title:
+                <label>
+                    <select th:field="*{title}">
+                        <option th:each="album:${albums}" th:value="${album.title}" th:text="${album.title}"></option>
+                    </select>
+                </label>
+            </p>
+
+            <input class ="button-main-page" type="submit" value="Remove" />
+        </form>
     </div>
 
 </body>

@@ -1,6 +1,7 @@
 package javaspring.springproject.controller;
 
 import javaspring.springproject.forms.AlbumForm;
+import javaspring.springproject.forms.DeletingForm;
 import javaspring.springproject.model.Album;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -79,13 +80,31 @@ public class AlbumController {
     }
 
     @GetMapping(value = {"/delete"})
-    public ModelAndView deletePerson(Model model, @ModelAttribute("albumform") AlbumForm albumForm)
+    public ModelAndView getAlbum(Model model)
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("deleting");
+        DeletingForm deletingForm = new DeletingForm();
+        model.addAttribute("deletingform", deletingForm);
         model.addAttribute("albums", albums);
 
-        //TODO logic need here
+        return modelAndView;
+    }
+
+    @PostMapping(value = {"/delete"})
+    public ModelAndView removeAlbum(Model model,
+                                    @ModelAttribute("deletingform") DeletingForm deletingform)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("albumlist");
+        String deletingTitle = deletingform.getTitle();
+
+        //TODO: not correct
+        //удаляются все с таким названием
+
+        albums.removeIf(album -> album.getTitle().equals(deletingTitle));
+
+        model.addAttribute("albums",albums);
         return modelAndView;
     }
 
