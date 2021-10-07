@@ -10,12 +10,27 @@
     <br/>
     <br/>
 
+    <div class="table-container">
+        <table class ="container" border="1">
+            <tr>
+                <th><h1>ID</h1></th>
+                <th><h1>Title</h1></th>
+                <th><h1>Author</h1></th>
+            </tr>
+            <tr th:each ="album : ${albums}">
+                <td th:utext="${album.id}">...</td>
+                <td th:utext="${album.title}">...</td>
+                <td th:utext="${album.author}">...</td>
+            </tr>
+        </table>
+    </div>
+
     <div class="container">
         <form th:action="@{/delete}" th:object="${deletingform}" method="POST">
-            <p>Title:
+            <p>ID:
                 <label>
-                    <select th:field="*{title}">
-                        <option th:each="album:${albums}" th:value="${album.title}" th:text="${album.title}"></option>
+                    <select th:field="*{id}">
+                        <option th:each="album:${albums}" th:value="${album.id}" th:text="${album.id}"></option>
                     </select>
                 </label>
             </p>

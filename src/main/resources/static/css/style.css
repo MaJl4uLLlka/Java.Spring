@@ -27,9 +27,15 @@ h2{
     color: #FB667A;
 }
 
+
 h2 a{
     font-weight: 700;
     text-transform: uppercase;
     color: #FB667A;
     text-decoration: none;
+}
+
+table {
+    width: 400px;
+    margin: auto;
 }

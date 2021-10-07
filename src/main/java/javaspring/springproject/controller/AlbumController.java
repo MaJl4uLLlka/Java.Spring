@@ -2,6 +2,7 @@ package javaspring.springproject.controller;
 
 import javaspring.springproject.forms.AlbumForm;
 import javaspring.springproject.forms.DeletingForm;
+import javaspring.springproject.forms.SearchForm;
 import javaspring.springproject.model.Album;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,11 +19,13 @@ import java.util.List;
 @RequestMapping
 public class AlbumController {
     private static List<Album> albums = new ArrayList<>();
+    private static int currentId = 4;
 
     static {
-        albums.add(new Album("Sosa Muzik", "Платина"));
-        albums.add(new Album("FREERIO", "OG Buda"));
-        albums.add(new Album("2004", "Скриптонит"));
+        albums.add(new Album(0,"Sosa Muzik", "Платина"));
+        albums.add(new Album(1,"FREERIO", "OG Buda"));
+        albums.add(new Album(2,"2004", "Скриптонит"));
+        albums.add(new Album(3,"2004", "SomeAuthor"));
     }
 
     @Value("${welcome.message}")
@@ -30,6 +33,9 @@ public class AlbumController {
 
     @Value("${error.message}")
     private String errorMessage;
+
+    @Value("${error.notFoundMessage}")
+    private String NotFoundMessage;
 
     @GetMapping (value = {"/", "index"})
     public ModelAndView index(Model model)
@@ -69,7 +75,7 @@ public class AlbumController {
         if (title != null && title.length() > 0 //
                 && author != null && author.length() > 0)
         {
-            Album newAlbum = new Album(title, author);
+            Album newAlbum = new Album(currentId++,title, author);
             albums.add(newAlbum);
             model.addAttribute("albums",albums);
             return modelAndView;
@@ -96,26 +102,53 @@ public class AlbumController {
                                     @ModelAttribute("deletingform") DeletingForm deletingform)
     {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("albumlist");
-        String deletingTitle = deletingform.getTitle();
+        modelAndView.setViewName("deleting");
+        int deletingAlbumId = deletingform.getId();
 
-        //TODO: not correct
-        //удаляются все с таким названием
-
-        albums.removeIf(album -> album.getTitle().equals(deletingTitle));
+        albums.removeIf(album -> album.getId() == deletingAlbumId);
 
         model.addAttribute("albums",albums);
         return modelAndView;
     }
 
     @GetMapping(value = {"/edit"})
-    public ModelAndView editPerson(Model model, @ModelAttribute("albumform") AlbumForm albumForm)
+    public ModelAndView getEditPage(Model model)
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editing");
-
-        //TODO logic
+        SearchForm searchForm = new SearchForm();
+        AlbumForm albumForm = new AlbumForm();
+        model.addAttribute("albumform", albumForm);
+        model.addAttribute("searchform", searchForm);
+        model.addAttribute("albums", albums);
         return modelAndView;
     }
 
+    @PostMapping(value = {"/edit"})
+    public ModelAndView searchAlbum(Model model, //
+                                    @ModelAttribute("albumform") AlbumForm albumForm) {
+        ModelAndView modelAndView = new ModelAndView();
+        int searchAlbumID = albumForm.getId();
+
+        Album album = albums.stream().filter(album1 -> album1.getId() == searchAlbumID).findFirst().get();
+        String title = albumForm.getTitle();
+        String author = albumForm.getAuthor();
+        if (title != null && title.length() > 0 //
+                && author != null && author.length() > 0)
+        {
+            album.setTitle(title);
+            album.setAuthor(author);
+
+            SearchForm searchForm1 = new SearchForm();
+            AlbumForm albumForm1 = new AlbumForm();
+            model.addAttribute("albumform", albumForm1);
+            model.addAttribute("searchform", searchForm1);
+            model.addAttribute("albums",albums);
+            modelAndView.setViewName("editing");
+            return modelAndView;
+        }
+        model.addAttribute("errorMessage", errorMessage);
+        modelAndView.setViewName("editing");
+        return modelAndView;
+    }
 }
