@@ -30,4 +30,10 @@
 ""2021-10-19 11:22:11 [http-nio-8080-exec-10] INFO  j.s.controller.AlbumController - /addalbum was called
 ""2021-10-19 11:22:25 [http-nio-8080-exec-9] INFO  j.s.controller.AlbumController - /index was called
 ""2021-10-19 11:22:41 [http-nio-8080-exec-3] INFO  j.s.controller.AlbumController - /index was called
+""2021-10-19 11:26:21 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+""2021-10-19 11:26:21 [SpringApplicationShutdownHook] INFO  o.h.t.s.i.SchemaDropperImpl$DelayedDropActionImpl - HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+""2021-10-19 11:26:21 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: База данных уже закрыта (чтобы отключить автоматическое закрытие базы данных при останове JVM, добавьте ";DB_CLOSE_ON_EXIT=FALSE" в URL)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
+""2021-10-19 11:26:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+""2021-10-19 11:26:21 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
 "
