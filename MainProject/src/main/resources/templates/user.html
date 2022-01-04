@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetup service</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}"/>
+    <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/contentLoad.js}"></script>
+</head>
+<body>
+<div class="nav">
+    <a href="index.html">Meetups</a>
+    <br>
+    <div class="tab-container">
+        <div class="tab"><a onclick="getMeetupPage()">Meetups</a></div>
+        <div class="tab"><a onclick="getRequestPage()">My requests</a></div>
+        <div class="tab"><a onclick="getReportPage()">My reports</a></div>
+        <div class="tab"><a onclick="LogOut()">Logout</a></div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="meetups-container">
+        <table>
+            <tr>
+                <td>Date</td>
+                <td><input type="date" name="" id="search_date" onclick="cheat()"></td>
+                <td><button onclick="searchMeetupsByDate()">Search</button></td>
+                <td><button onclick="getAllMeetups()">Show all</button></td>
+                <td><button onclick="previoslyPage()">Previosly page</button></td>
+                <td><button onclick="nextPage()">Next page</button></td>
+                <td>Start time:</td>
+                <td><input type="time" id="start_time" oninput="magic()"></td>
+                <td>End time:</td>
+                <td><input type="time" id="end_time" oninput="magic2()"></td>
+                <td><button onclick="FilterByTime()" id="filter_button">Filter</button></td>
+            </tr>
+        </table>
+
+        <div id="meetups">
+        </div>
+
+        <div class="unvisible form-login" id="topic-form">
+            <div class="tab-container">
+                <div class="tab" id="login_tab">New report</div>
+            </div>
+            <div class="login">
+                <div class="error" style="visibility: hidden"></div>
+                <table>
+                    <tr>
+                        <td>Topic of your report:</td>
+                        <td><input type='text' name='username' id="report_topic" value=''></td>
+                    </tr>
+                    <tr>
+                        <td><input name="submit" type="button" onclick="sendReport()"  value="submit" id="auth_button" /></td>
+                    </tr>
+                </table>
+            </div>
+    
+        </div>
+    </div>
+
+    <div class="requests-container unvisible"></div>
+
+    <div class="reports-container unvisible"></div>
+
+    <div class="unvisible form-login" id="edit_report_form">
+        <div class="tab-container">
+            <div class="tab" >Edit report</div>
+        </div>
+        <div class="login">
+            <div class="error" style="visibility: hidden"></div>
+            <table>
+                <tr>
+                    <td>Topic of your report:</td>
+                    <td><input type='text' name='username' id="edit_report_topic" value=''></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="button" onclick="saveChangedReport()"  value="submit"/></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meetup service</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/nav.css}"/>
+    <script th:src="@{/js/auth.js}"></script>
+    <script th:src="@{/js/contentLoad.js}"></script>
+</head>
+<body>
+<div class="nav">
+    <a href="index.html">Meetups</a>
+    <br>
+    <div class="tab-container">
+        <div class="tab"><a onclick="getLoginPage()">Login / Register</a></div>
+    </div>
+</div>
+
+<div class="page-content">
+
+    <div class="unvisible form-login" id="auth_form">
+        <div class="tab-container">
+            <div class="tab" id="login_tab">Login</div>
+            <div class="tab" id="register_tab">Register</div>
+        </div>
+        <div class="login">
+            <div class="error" style="visibility: hidden"></div>
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type='text' name='username' id="auth_email" value=''></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type='password' name='password' id = "auth_password" /></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="button" onclick="sendAuthForm()"  value="submit" id="auth_button" /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="register unvisible">
+            <div class="error" style="visibility: hidden"></div>
+            <table>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type='text' name='username' id="reg_email" value=''></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type='password' name='password' id = "reg_password" /></td>
+                </tr>
+                <tr>
+                    <td>Firstname:</td>
+                    <td><input type='password' name='password' id = "reg_firstname" /></td>
+                </tr>
+                <tr>
+                    <td>Lastname:</td>
+                    <td><input type='password' name='password' id = "reg_lastname" /></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="button" onclick="sendRegisterForm()"  value="submit" id="auth_button" /></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var register_tab = document.getElementById("register_tab");
+    register_tab.addEventListener('click', ()=>{
+    document.getElementsByClassName('login')[0].classList.add('unvisible');
+    document.getElementsByClassName('register')[0].classList.remove('unvisible');
+    })
+
+var login_tab = document.getElementById("login_tab");
+login_tab.addEventListener('click', ()=>{
+    document.getElementsByClassName('register')[0].classList.add('unvisible');
+    document.getElementsByClassName('login')[0].classList.remove('unvisible');
+})
+
+</script>
+</body>
+</html>
