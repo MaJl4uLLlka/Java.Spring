@@ -1,0 +1,162 @@
+@charset "UTF-8";
+.error{
+    background-color: #cd5c5c;
+    width: auto;
+    height: 40px;
+}
+
+.container{
+    margin: 5px 5px 5px 5px;
+    width: 100%;
+    border: 2px solid #cd5c5c;
+    border-radius: 20px;
+}
+
+.container td{
+    text-align: center;
+    margin:0 auto;
+}
+
+.container button{
+    height: 40px;
+    width: 80px;
+}
+
+.topic{
+    border-bottom: 2px solid #cd5c5c;
+}
+
+.datetime{
+    border-right: 2px solid #cd5c5c;
+}
+
+body{
+    margin: 0px;
+    background-color: aliceblue;
+}
+
+.nav
+{
+    height: 90px;
+    background-color: #515966;
+    color: aliceblue;
+    align-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    padding-top: 5px;
+    padding-left: 20px;
+}
+
+.nav a{
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.tab-container
+{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tab
+{
+    flex: 4;
+    align-self: center;
+    text-align: center;
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+    align-content: center;
+}
+
+.tab a{
+    vertical-align: middle;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.page-content
+{
+    align-content: center;
+    position: relative;
+    justify-content: center;
+    padding: 5px 15px 5px 5px;
+}
+
+.page-content  h2
+{
+    margin-top: 30px;
+    text-align: center;
+    line-height: 1.333334em;
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: 0.1px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #515966;
+}
+
+P.blocktext {
+    margin-left: 35px;
+    margin-right: 15px;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+}
+
+.visible{
+    display: block;
+}
+
+.unvisible{
+    display: none;
+}
+
+.form-login{
+    border-collapse: separate;
+    border: 2px solid #2E3A4D;
+    border-radius: 25px;
+    background-color: #515966;
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: relative;
+    margin: auto;
+    width: 300px;
+    height: 230px;
+    top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+}
+
+.form-login h1{
+    font-size: 24px;
+}
+
+.form-login td{
+    font-size: 15px;
+}
+
+div .tab:hover{
+    cursor: pointer;
+}
+
+.active {
+    border-bottom: 3px aliceblue solid;
+}
+
+#meetups{
+    width: 100%;
+    margin: 0 auto;
+}
+
+img:hover
+{
+    cursor: pointer;
+}
