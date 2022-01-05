@@ -76,6 +76,7 @@ function LogOut()
             isAuthorized = false;
             window.location.href = 'http://localhost:8080/';
             email = null;
+            resetAdminPages();
         })
         .catch((err) => {
         console.log(err);

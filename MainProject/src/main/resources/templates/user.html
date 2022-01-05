@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="nav">
-    <a href="index.html">Meetups</a>
+    <a href="http://localhost:8080/">Meetups</a>
     <br>
     <div class="tab-container">
         <div class="tab"><a onclick="getMeetupPage()">Meetups</a></div>
@@ -27,7 +27,7 @@
                 <td><input type="date" name="" id="search_date" onclick="cheat()"></td>
                 <td><button onclick="searchMeetupsByDate()">Search</button></td>
                 <td><button onclick="getAllMeetups()">Show all</button></td>
-                <td><button onclick="previoslyPage()">Previosly page</button></td>
+                <td><button onclick="previoslyPage()">Prev page</button></td>
                 <td><button onclick="nextPage()">Next page</button></td>
                 <td>Start time:</td>
                 <td><input type="time" id="start_time" oninput="magic()"></td>
@@ -60,9 +60,27 @@
         </div>
     </div>
 
-    <div class="requests-container unvisible"></div>
+    <div class="requests-container unvisible">
+        <table>
+            <tr>
+                <td><button onclick="prevRequestPage()">Prev page</button></td>
+                <td><button onclick="nextRequestPage()">Next page</button></td>
+            </tr>
+        </table>
 
-    <div class="reports-container unvisible"></div>
+        <div id="requests"></div>
+    </div>
+
+    <div class="reports-container unvisible">
+        <table>
+            <tr>
+                <td><button onclick="prevReportPage()">Prev page</button></td>
+                <td><button onclick="nextReportPage()">Next page</button></td>
+            </tr>
+        </table>
+
+        <div id="reports"></div>
+    </div>
 
     <div class="unvisible form-login" id="edit_report_form">
         <div class="tab-container">

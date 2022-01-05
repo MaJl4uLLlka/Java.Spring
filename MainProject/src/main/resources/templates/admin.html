@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="nav">
-    <a href="index.html">Meetups</a>
+    <a href="http://localhost:8080/">Meetups</a>
     <br>
     <div class="tab-container">
         <div class="tab"><a onclick="getAdminMeetupsPage()">Meetups</a></div>
@@ -22,16 +22,9 @@
     <div class="meetups-container">
         <table>
             <tr>
-                <td>Date</td>
-                <td><input type="date" name="" id="search_date" onclick="cheat()"></td>
-                <td><button>Search</button></td>
-                <td><button onclick="getAllMeetupsForAdmin()">Show all</button></td><td><button onclick="previoslyPage()">Previosly page</button></td>
-                <td><button onclick="nextPage()">Next page</button></td>
-                <td>Start time:</td>
-                <td><input type="time" id="start_time" oninput="magic()"></td>
-                <td>End time:</td>
-                <td><input type="time" id="end_time" oninput="magic2()"></td>
-                <td><button onclick="FilterByTime()" id="filter_button">Filter</button></td>
+                <td><button onclick="getAllMeetupsForAdmin()">Show all</button></td>
+                <td><button onclick="prevAdminMeetupsPage()">Previosly page</button></td>
+                <td><button onclick="nextAdminMeetupsPage()">Next page</button></td>
                 <td><button onclick="getMeetupForm()">Add meetup</button></td>
             </tr>
         </table>
@@ -107,7 +100,16 @@
 
     </div>
     </div>
-    <div class="requests-container unvisible"></div>
+    <div class="requests-container unvisible">
+        <table>
+            <tr>
+                <td><button onclick="prevAdminRequestPage()">Prev page</button></td>
+                <td><button onclick="nextAdminRequestPage()">Next page</button></td>
+            </tr>
+        </table>
+
+        <div id="requests"></div>
+    </div>
 </div>
 </body>
 </html>

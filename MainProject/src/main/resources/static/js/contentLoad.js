@@ -7,8 +7,6 @@ let num_request_admin_page = 0;
 
 
 let max_meetup_page;
-let max_request_page;
-let max_report_page;
 
 let temp_id = null;
 
@@ -59,6 +57,78 @@ function previoslyPage(){
             getAllMeetups();
         }
     }
+}
+
+async function nextRequestPage(){
+    num_request_page++;
+    let count = await getUserRequests();
+    console.log(count);
+    if(count === 0){
+        prevRequestPage();
+    }
+}
+
+function prevRequestPage(){
+    if(num_request_page > 0){
+        num_request_page--;
+        getUserRequests();
+    }
+}
+
+ async function nextAdminRequestPage(){
+    num_request_admin_page++;
+    let count = await getRequestsForAdmin();
+    if(count === 0){
+        prevAdminRequestPage();
+    }
+}
+
+function prevAdminRequestPage(){
+    if(num_request_admin_page > 0){
+        num_request_admin_page--;
+        getRequestsForAdmin();
+    }
+}
+
+async function nextAdminMeetupsPage(){
+    num_meetup_admin_page++;
+    let count = await getAllMeetupsForAdmin();
+    if(count === 0){
+        prevAdminMeetupsPage();
+    }
+}
+
+function prevAdminMeetupsPage(){
+    if(num_meetup_admin_page > 0){
+        num_meetup_admin_page--;
+        getAllMeetupsForAdmin();
+    }
+}
+
+async function nextReportPage(){
+    num_report_page++;
+    let count = await getUserReports();
+    if(count === 0){
+        prevReportPage();
+    }
+}
+
+function prevReportPage(){
+    if(num_report_page > 0){
+        num_report_page--;
+        getUserReports();
+    }
+}
+
+function resetPages(){
+    num_meetup_page = 0;
+    num_report_page = 0;
+    num_request_page = 0;
+}
+
+function resetAdminPages(){
+    num_meetup_admin_page = 0;
+    num_request_admin_page = 0;
 }
 
 function getMeetupsByDate(){
@@ -399,6 +469,7 @@ function magic2(){
         document.getElementsByClassName('meetups-container')[0].classList.add('unvisible');
         document.getElementsByClassName('reports-container')[0].classList.add('unvisible');
         document.getElementsByClassName('requests-container')[0].classList.remove('unvisible');
+        resetPages();
         getUserRequests();
     }
 
@@ -406,6 +477,7 @@ function magic2(){
         document.getElementsByClassName('requests-container')[0].classList.add('unvisible');
         document.getElementsByClassName('meetups-container')[0].classList.add('unvisible');
         document.getElementsByClassName('reports-container')[0].classList.remove('unvisible');
+        resetPages();
         getUserReports();
     }
 
@@ -413,10 +485,13 @@ function magic2(){
         document.getElementsByClassName('requests-container')[0].classList.add('unvisible');
         document.getElementsByClassName('reports-container')[0].classList.add('unvisible');
         document.getElementsByClassName('meetups-container')[0].classList.remove('unvisible');
+        resetPages();
     }
 
-    function getUserRequests(){
-        fetch(`http://localhost:8080/requests/myrequests/${num_request_page}/${localStorage.getItem('email')}`,{
+    async function getUserRequests(){
+
+        let elements_count = 0;
+        await fetch(`http://localhost:8080/requests/myrequests/${num_request_page}/${localStorage.getItem('email')}`,{
             method:'GET',
             headers: {
                 'Content-Type':'text/html',
@@ -426,7 +501,8 @@ function magic2(){
         })
             .then( result => {return result.json()})
             .then(data => {
-                document.getElementsByClassName('requests-container')[0].innerHTML = '';
+                document.getElementById('requests').innerHTML = '';
+                elements_count = data.length;
                 for (const element of data) {
                     let status = '';
                     if(element.isCanceled){
@@ -438,7 +514,7 @@ function magic2(){
                     else{
                         status = "Waiting for a response";
                     }
-                    document.getElementsByClassName('requests-container')[0].innerHTML += `
+                    document.getElementById('requests').innerHTML += `
                     <table class="container">
                         <tr id="${element.id}">
                             <td  class="place" style="width: 100px;">Id: ${element.id}</td>
@@ -449,6 +525,8 @@ function magic2(){
                     `;
                 }
             })
+
+        return elements_count;
     }
 
     function deleteUserRequest(elem){
@@ -468,8 +546,9 @@ function magic2(){
             })
     }
 
-    function getUserReports(){
-        fetch(`http://localhost:8080/reports/myreports/${num_report_page}/${localStorage.getItem('email')}`,{
+    async function getUserReports(){
+        let elements_count = 0;
+        await fetch(`http://localhost:8080/reports/myreports/${num_report_page}/${localStorage.getItem('email')}`,{
             method:'GET',
             headers: {
                 'Content-Type':'text/html',
@@ -479,9 +558,10 @@ function magic2(){
         })
             .then( result => {return result.json()})
             .then(data => {
-                document.getElementsByClassName('reports-container')[0].innerHTML = '';
+                document.getElementById('reports').innerHTML = '';
+                elements_count = data.length;
                 for (const element of data) {
-                    document.getElementsByClassName('reports-container')[0].innerHTML += `
+                    document.getElementById('reports').innerHTML += `
                     <table class="container">
                         <tr id="${element.id}">
                             <td  class="place" style="width: 100px;">Id: ${element.id}</td>
@@ -493,6 +573,8 @@ function magic2(){
                     `;
                 }
             })
+
+        return elements_count;
     }
 
     function deleteReport(elem){
@@ -549,16 +631,19 @@ function magic2(){
     function getAdminRequestPage(){
         document.getElementsByClassName('meetups-container')[0].classList.add('unvisible');
         document.getElementsByClassName('requests-container')[0].classList.remove('unvisible');
+        resetAdminPages();
         getRequestsForAdmin();
     }
 
     function getAdminMeetupsPage(){
         document.getElementsByClassName('requests-container')[0].classList.add('unvisible');
         document.getElementsByClassName('meetups-container')[0].classList.remove('unvisible');
+        resetAdminPages();
     }
 
-    function getRequestsForAdmin(){
-        fetch(`http://localhost:8080/requests/all/${num_request_admin_page}/${localStorage.getItem('email')}`,{
+    async function getRequestsForAdmin(){
+        let count = 0;
+        await fetch(`http://localhost:8080/requests/all/${num_request_admin_page}/${localStorage.getItem('email')}`,{
             method: 'GET',
             headers: {
                 'Content-Type':'text/html',
@@ -568,9 +653,10 @@ function magic2(){
         })
             .then(result => {return result.json()})
             .then(data => {
-                document.getElementsByClassName('requests-container')[0].innerHTML = '';
+                document.getElementById('requests').innerHTML = '';
+                count = data.length;
                 for (const element of data) {
-                    document.getElementsByClassName('requests-container')[0].innerHTML += `
+                    document.getElementById('requests').innerHTML += `
                     <table class="container">
                         <tr id="${element.id}">
                             <td  class="place" style="width: 100px;">Id: ${element.id}</td>
@@ -582,6 +668,8 @@ function magic2(){
                     `;
                 }
             })
+
+        return count;
     }
 
     function DeleteMeetup(element){
@@ -602,8 +690,9 @@ function magic2(){
             })
     }
 
-function getAllMeetupsForAdmin(){
-    fetch('http://localhost:8080/meetups/', {
+async function getAllMeetupsForAdmin(){
+    let count = 0;
+    await fetch(`http://localhost:8080/meetups/${num_meetup_admin_page}`, {
         method: 'GET',
         headers: {
             'Content-Type':'text/html',
@@ -615,6 +704,7 @@ function getAllMeetupsForAdmin(){
         .then(data => {
             console.log(data);
             document.getElementById('meetups').innerHTML = '';
+            count = data.length;
             for (const iterator of data) {
                 document.getElementById('meetups').innerHTML += `
             <table class="container">
@@ -641,6 +731,9 @@ function getAllMeetupsForAdmin(){
             `;
             }
         })
+
+    console.log(count);
+    return count;
 }
 
 function getEditMeetupForm(element){
