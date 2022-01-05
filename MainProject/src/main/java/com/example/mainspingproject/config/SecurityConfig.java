@@ -3,6 +3,7 @@ package com.example.mainspingproject.config;
 import com.example.mainspingproject.security.JwtConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
+                .antMatchers("/docs/**").permitAll()
                 .antMatchers("/auth/login", "/auth/register").permitAll()
                 .anyRequest()
                 .authenticated()

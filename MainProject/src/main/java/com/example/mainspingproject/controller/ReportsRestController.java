@@ -4,6 +4,7 @@ import com.example.mainspingproject.dto.EmailDTO;
 import com.example.mainspingproject.dto.RequestReportDTO;
 import com.example.mainspingproject.dto.ResponseReportDTO;
 import com.example.mainspingproject.service.ReportsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "Report", description = "API for reports")
 @RestController
 @RequestMapping("/reports")
 public class ReportsRestController {

@@ -7,6 +7,7 @@ import com.example.mainspingproject.dto.RegisterNewRequestDTO;
 import com.example.mainspingproject.dto.ResponseRequestDTO;
 import com.example.mainspingproject.email.DefaultEmailService;
 import com.example.mainspingproject.service.RequestService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "Request", description = "API for request")
 @RestController
 @RequestMapping("/requests")
 public class RequestsRestController {

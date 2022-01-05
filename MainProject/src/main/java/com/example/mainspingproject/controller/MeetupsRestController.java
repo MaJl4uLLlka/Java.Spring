@@ -5,6 +5,7 @@ import com.example.mainspingproject.dto.*;
 import com.example.mainspingproject.entity.Meetup;
 import com.example.mainspingproject.service.MeetupServiceImpl;
 import com.example.mainspingproject.util.Mapper;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+@Tag(name = "Meetups", description = "API for meetups")
 @RestController
 @RequestMapping("/meetups")
 public class MeetupsRestController {

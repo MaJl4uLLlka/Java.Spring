@@ -8,6 +8,12 @@ import com.example.mainspingproject.security.enums.Status;
 import com.example.mainspingproject.entity.User;
 import com.example.mainspingproject.repository.UserRepository;
 import com.example.mainspingproject.security.JwtTokenProvider;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +33,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag(name = "Account", description = "The Account API for authentication and registration")
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationRestController {
@@ -41,6 +48,15 @@ public class AuthenticationRestController {
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
     }
+
+
+    @Operation(summary = "Authenticate")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Logging success",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AuthenticationRequestDTO.class)) }),
+            @ApiResponse(responseCode = "403", description = "Invalid email/password combination",
+                    content = @Content)})
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@Valid @RequestBody AuthenticationRequestDTO request){
@@ -64,6 +80,14 @@ public class AuthenticationRestController {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(request, response, null);
     }
+
+    @Operation(summary = "Register")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Register success",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = RegisterRequestDTO.class)) }),
+            @ApiResponse(responseCode = "400", description = "User with this email exists",
+                    content = @Content)})
 
     @PostMapping("/register")
     public ResponseEntity<?> registerNewUser(@Valid @RequestBody RegisterRequestDTO request){
